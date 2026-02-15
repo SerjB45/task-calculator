@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block content %}
+<h1>Задача № {{ task.id }}: {{ task.title }}</h1>
+<p>Итого часов: {{ task.total_time }}</p>
+<a href="{% url 'add_detail' task.id %}" class="btn btn-success">Добавить этап</a>
+
+<h2>Этапы выполнения задачи:</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Этап</th>
+            <th scope="col">Стадия</th>
+            <th scope="col">Время</th>
+            <th scope="col">Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for detail in details %}
+        <tr>
+            <td>{{ detail.stage }}</td>
+            <td>{{ detail.name_stage_task }}</td>
+            <td>
+                <span class="badge bg-primary rounded-pill">{{ detail.time_spent }} ч.</span>
+            </td>
+            <td>
+                <a href="{% url 'edit_detail' detail.id %}" class="btn btn-warning btn-sm">Редактировать</a>
+                <a href="{% url 'delete_detail' detail.id %}" class="btn btn-danger btn-sm">Удалить</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Нет этапов</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

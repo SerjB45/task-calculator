@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Методология оценки{% endblock %}
+
+{% block content %}
+<h1>Методология оценки</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Этап разработки</th>
+            <th scope="col">Вид</th>
+            <th scope="col">% от разработки</th>
+            <th scope="col">Примечание</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for line in info %}
+        <tr>
+            <td>{{ line.stage }}</td>
+            <td>{{ line.name_stage_info }}</td>
+            <td>{{ line.rate }}</td>
+            <td>{{ line.note }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

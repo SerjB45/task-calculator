@@ -1,0 +1,5 @@
+.env
+env
+testingfunc.py
+*db.sqlite3
+__pycache__

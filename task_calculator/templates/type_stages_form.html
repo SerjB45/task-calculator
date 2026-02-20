@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Редактирование типа этапа "{% block title_inner %}{{ type_stage.name_stage }}{% endblock %}"{% endblock %}
+
+{% block content %}
+<h1>"Этап "{{ type_stage.name_stage }}"</h1>
+{% if user.is_manager or user.is_superuser %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+{% endif %}
+{% endblock %}

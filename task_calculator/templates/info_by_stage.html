@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Стадии{% endblock %}
+
+{% block content %}
+<h1>Стадии</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Этап разработки</th>
+            <th scope="col">Номер стадии</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for line in page_obj %}
+        <tr>
+            <td>{{ line.numb }}</td>
+            <td>{{ line.name_stage }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

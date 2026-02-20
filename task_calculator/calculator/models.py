@@ -1,4 +1,12 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+
+class MyUser(AbstractUser):
+    is_manager = models.BooleanField(default=False, verbose_name='Менеджер')
+
+    def __str__(self):
+        return self.username
 
 
 class TypeStages(models.Model):
@@ -13,6 +21,13 @@ class TypeStages(models.Model):
 class Task(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название задачи')
     total_time = models.FloatField(default=0, verbose_name='Итоговое время')
+    customer = models.CharField(max_length=100, verbose_name='Заказчик',
+                                blank=True, null=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name='Дата создания')
+    created_by = models.ForeignKey(
+        MyUser, on_delete=models.SET_NULL,
+        null=True, blank=True, verbose_name='Создатель')
 
     def __str__(self):
         return self.title
@@ -30,6 +45,8 @@ class TaskDetail(models.Model):
                                         related_name='task_details',
                                         verbose_name='Стадия',
                                         default=1)
+    updated_at = models.DateTimeField(
+        auto_now=True, verbose_name='Дата обновления')
 
     def save(self, *args, **kwargs):
         old_time = getattr(self, '_old_time', None)

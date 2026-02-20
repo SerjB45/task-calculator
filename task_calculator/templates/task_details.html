@@ -25,8 +25,10 @@
                 <span class="badge bg-primary rounded-pill">{{ detail.time_spent }} ч.</span>
             </td>
             <td>
-                <a href="{% url 'edit_detail' detail.id %}" class="btn btn-warning btn-sm">Редактировать</a>
-                <a href="{% url 'delete_detail' detail.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                {% if task.created_by == user or user.is_manager %}
+                    <a href="{% url 'edit_detail' detail.id %}" class="btn btn-warning btn-sm">Редактировать</a>
+                    <a href="{% url 'delete_detail' detail.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                {% endif %}
             </td>
         </tr>
         {% empty %}

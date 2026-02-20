@@ -10,7 +10,7 @@ class MyUser(AbstractUser):
 
 
 class TypeStages(models.Model):
-    numb = models.IntegerField(verbose_name='Номер стадии')
+    numb = models.IntegerField(verbose_name='Номер стадии', unique=True)
     name_stage = models.CharField(max_length=50,
                                   verbose_name='Наименование стадии')
 

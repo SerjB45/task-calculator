@@ -1,10 +1,10 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from django.views.generic import CreateView, DeleteView, UpdateView, ListView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from django.core.exceptions import PermissionDenied
 
-from .forms import TaskDetailForm, TaskForm, TypeStagesForm, InfoByRateForm
-from .models import Task, TaskDetail, InfoByRate, TypeStages
+from .forms import TaskDetailForm, TaskForm, InfoByRateForm
+from .models import Task, TaskDetail, InfoByRate
 
 
 @login_required
@@ -137,30 +137,6 @@ class ManagerRequiredMixin:
             raise PermissionDenied(
                 "У вас нет прав для доступа к этой странице.")
         return super().dispatch(request, *args, **kwargs)
-
-
-class TypeStagesMixin:
-    model = TypeStages
-    template_name = 'type_stages_form.html'
-    success_url = 'info-by-stage/'
-
-
-class TypeStagesCreateView(ManagerRequiredMixin, TypeStagesMixin, CreateView):
-    form_class = TypeStagesForm
-
-
-class TypeStagesDeleteView(ManagerRequiredMixin, TypeStagesMixin, DeleteView):
-    pass
-
-
-class TypeStagesUpdateView(ManagerRequiredMixin, TypeStagesMixin, UpdateView):
-    form_class = TypeStagesForm
-
-
-class TypeStagesListView(ListView):
-    model = TypeStages
-    template_name = 'info_by_stage.html'
-    paginate_by = 10
 
 
 class InfoByRateMixin:
